@@ -1,30 +1,20 @@
 package com.example.tvshow;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tvshow.model.Flower;
 import com.example.tvshow.parsers.JSONParser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,16 +24,12 @@ public class MainActivity extends ListActivity {
     List<Flower> flowerList;
 
     @SuppressWarnings("unused")
-    private static final String PHOTO_BASE_URL = "http://services.hanselandpetal.com/photos/";
+    public static final String PHOTO_BASE_URL = "http://services.hanselandpetal.com/photos/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //output = (TextView) findViewById(R.id.textView);
-        //output.setMovementMethod(new ScrollingMovementMethod());
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -121,20 +107,6 @@ public class MainActivity extends ListActivity {
             // InputStream in = null;
             String content = HttpManager.getData(params[0]);
             flowerList = JSONParser.parserFeed(content);
-
-             // Request for the photo
-         /*    for (Flower flower : flowerList) {
-                 try {
-                     String imageURL = PHOTO_BASE_URL + flower.getPhoto();
-                     InputStream in = (InputStream) new URL(imageURL).getContent();
-                     Bitmap bitmap = BitmapFactory.decodeStream(in);
-                     flower.setBitmap(bitmap);
-                     in.close();
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-             }
-             */
             return flowerList;
         }
 
